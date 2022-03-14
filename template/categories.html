@@ -71,7 +71,7 @@
                                 <div>
                                     <h4 class="mb-3">Categorías</h4>
                                 </div>
-                                <a href="add-category.html" class="btn btn-primary add-list">
+                                <a href="path('app_categories_new')" class="btn btn-primary add-list">
                                     <i class="las la-plus mr-3"></i>Nueva categoría
                                 </a>
                             </div>
@@ -86,10 +86,21 @@
                                         </tr>
                                     </thead>
                                     <tbody>
+                                    {% for category in categories %}
                                         <tr>
-                                            <td class="text-left">Balones de fútbol</td>
-                                            <td class="text-center">11</td>
+                                            <td class="text-left">{{ category.name }}</td>
+                                            <td class="text-center">{{ category.id }}</td>
+                                            <td class='text-right'>
+                                                <a class="badge bg-warning" data-toggle="tooltip" data-placement="top" title="" data-original-title="Editar" href="{{ path('app_categories_edit', {'id': category.id}) }}">
+                                                    <i class="ri-pencil-line"></i>
+                                                </a>
+                                            </td>
                                         </tr>
+                                    {% else %}
+                                        <tr>
+                                            <td colspan="3">Sin registros</td>
+                                        </tr>
+                                    {% endfor %}
                                     </tbody>
                                 </table>
                             </div>

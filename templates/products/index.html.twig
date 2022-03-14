@@ -1,0 +1,61 @@
+{{ include('header.html.twig') }} 
+          
+            <div class="content-page">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="d-flex flex-wrap flex-wrap align-items-center justify-content-between mb-4">
+                                <div>
+                                    <h4 class="mb-3">Productos</h4>
+                                </div>
+                                <a href="{{ path('app_products_new') }}" class="btn btn-primary add-list">
+                                    <i class="las la-plus mr-3"></i>Nuevo producto
+                                </a>
+                            </div>
+                        </div>
+                        <div class="col-lg-12">
+                            <div class="table-responsive mb-3">
+                                <table class="table mb-0 tbl-server-info no-footer" role="grid">
+                                    <thead class="bg-white text-uppercase">
+                                        <tr class="ligth ligth-data" role="row">
+                                            <th class="text-left">Nombre</th>
+                                            <th class="text-left">Código</th>
+                                            <th class="text-left">Categoría</th>
+                                            <th class="text-center">Stock inicial</th>
+                                            <th class="text-right">Acciones</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                    {% for product in products %}
+                                        <tr>
+                                            <td class="text-left">{{ product.name }}</td>
+                                            <td class="text-left">{{ product.id }}</td>
+                                            <td class="text-left">{{ product.category }}</td>
+                                            <td class="text-center">{{ product.stock }}</td>
+                                            <td class="text-right">
+                                                <a class="badge bg-success" data-toggle="tooltip" data-placement="top" title="" data-original-title="Gestionar stock" href="{{ path('app_stock_historic_new') }}">
+                                                    <i class="las la-cogs"></i>
+                                                </a>
+                                                <a class="badge bg-success" data-toggle="tooltip" data-placement="top" title="" data-original-title="Histórico" href="#">
+                                                    <i class="las la-history"></i>
+                                                </a>
+                                                <a class="badge bg-warning" data-toggle="tooltip" data-placement="top" title="" data-original-title="Editar" href="{{ path('app_products_edit', {'id': product.id}) }}">
+                                                    <i class="ri-pencil-line"></i>
+                                                </a>
+                                            </td>
+                                        </tr>
+                                    {% else %}
+                                        <tr>
+                                            <td colspan="5">Sin registros</td>
+                                        </tr>
+                                    {% endfor %}
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div> 
+                    </div>
+                </div>
+            </div>
+        </div>
+
+{{ include('footer.html.twig') }} 

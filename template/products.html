@@ -6,12 +6,12 @@
         <title>Productos - Stockify</title>
       
         <!-- Favicon -->
-        <link rel="shortcut icon" href="assets/images/favicon.ico" />
-        <link rel="stylesheet" href="assets/css/backend-plugin.min.css">
-        <link rel="stylesheet" href="assets/css/backend.css?v=1.0.0">
-        <link rel="stylesheet" href="assets/vendor/@fortawesome/fontawesome-free/css/all.min.css">
-        <link rel="stylesheet" href="assets/vendor/line-awesome/dist/line-awesome/css/line-awesome.min.css">
-        <link rel="stylesheet" href="assets/vendor/remixicon/fonts/remixicon.css">
+        <link rel="shortcut icon" href="../assets/images/favicon.ico" />
+        <link rel="stylesheet" href="../assets/css/backend-plugin.min.css">
+        <link rel="stylesheet" href="../assets/css/backend.css?v=1.0.0">
+        <link rel="stylesheet" href="../assets/vendor/@fortawesome/fontawesome-free/css/all.min.css">
+        <link rel="stylesheet" href="../assets/vendor/line-awesome/dist/line-awesome/css/line-awesome.min.css">
+        <link rel="stylesheet" href="../assets/vendor/remixicon/fonts/remixicon.css">
     </head>
     <body class="  ">
         <!-- loader Start -->
@@ -25,7 +25,7 @@
             <div class="iq-sidebar  sidebar-default ">
                 <div class="iq-sidebar-logo d-flex align-items-center justify-content-between">
                     <a href="../backend/index.html" class="header-logo">
-                        <img src="assets/images/logo.png" class="img-fluid rounded-normal light-logo" alt="logo"><h5 class="logo-title light-logo ml-3">POSDash</h5>
+                        <img src="../assets/images/logo.png" class="img-fluid rounded-normal light-logo" alt="logo"><h5 class="logo-title light-logo ml-3">POSDash</h5>
                     </a>
                     <div class="iq-menu-bt-sidebar ml-0">
                         <i class="las la-bars wrapper-menu"></i>
@@ -71,7 +71,7 @@
                                 <div>
                                     <h4 class="mb-3">Productos</h4>
                                 </div>
-                                <a href="add-product.html" class="btn btn-primary add-list">
+                                <a href="{{ path('app_products_new') }}" class="btn btn-primary add-list">
                                     <i class="las la-plus mr-3"></i>Nuevo producto
                                 </a>
                             </div>
@@ -89,11 +89,12 @@
                                         </tr>
                                     </thead>
                                     <tbody>
+                                    {% for product in products %}
                                         <tr>
-                                            <td class="text-left">Accelerate FIFA Pro</td>
-                                            <td class="text-left">1</td>
-                                            <td class="text-left">Balones de fútbol</td>
-                                            <td class="text-center">10</td>
+                                            <td class="text-left">{{ product.name }}</td>
+                                            <td class="text-left">{{ product.id }}</td>
+                                            <td class="text-left">{{ product.category }}</td>
+                                            <td class="text-center">{{ product.stock }}</td>
                                             <td class="text-right">
                                                 <a class="badge bg-danger" data-toggle="tooltip" data-placement="top" title="" data-original-title="Eliminar stock" href="#">
                                                     <i class="las la-minus"></i>
@@ -104,11 +105,16 @@
                                                 <a class="badge bg-success" data-toggle="tooltip" data-placement="top" title="" data-original-title="Histórico" href="#">
                                                     <i class="las la-history"></i>
                                                 </a>
-                                                <a class="badge bg-warning" data-toggle="tooltip" data-placement="top" title="" data-original-title="Editar" href="#">
+                                                <a class="badge bg-warning" data-toggle="tooltip" data-placement="top" title="" data-original-title="Editar" href="{{ path('app_products_edit', {'id': product.id}) }}">
                                                     <i class="ri-pencil-line"></i>
                                                 </a>
                                             </td>
                                         </tr>
+                                    {% else %}
+                                        <tr>
+                                            <td colspan="5">Sin registros</td>
+                                        </tr>
+                                    {% endfor %}
                                     </tbody>
                                 </table>
                             </div>
@@ -119,9 +125,9 @@
         </div>
     
         <!-- Backend Bundle JavaScript -->
-        <script src="assets/js/backend-bundle.min.js"></script>
+        <script src="../assets/js/backend-bundle.min.js"></script>
     
         <!-- app JavaScript -->
-        <script src="assets/js/app.js"></script>
+        <script src="../assets/js/app.js"></script>
     </body>
 </html>
