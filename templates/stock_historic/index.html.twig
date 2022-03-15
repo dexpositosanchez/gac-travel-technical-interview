@@ -1,37 +1,59 @@
-{% extends 'base.html.twig' %}
+{{ include('header.html.twig') }} 
+          
+            <div class="content-page">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="d-flex flex-wrap flex-wrap align-items-center justify-content-between mb-4">
+                                <div>
+                                    <h4 class="mb-3">Historico de gestiones para el producto {{ product.name }}</h4>
+                                </div>
+                                <a href="{{ path('app_products_index') }}" class="btn btn-primary add-list">
+                                    <i class="las la-arrow-left mr-3"></i>Volver
+                                </a>
+                            </div>
+                        </div>
+                        <div class="col-lg-12">
+                            <div class="table-responsive mb-3">
+                                <table class="table mb-0 tbl-server-info no-footer" role="grid">
+                                    <thead class="bg-white text-uppercase">
+                                        <tr>
+                                            <th class="text-left">Usuario</th>
+                                            <th class="text-left">Fecha y hora</th>
+                                            <th class="text-left">Gestión</th>
+                                            <th class="text-center">Cantidad</th>
+                                            <th class="text-center">Stock</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td colspan='4' class="text-right">STOCK INICIAL</td>
+                                            <td class="text-center">{{ product.stock }}</td>
+                                        </tr>
+                                        {% for stock in stock_historics %}
+                                            <tr>
+                                                <td class="text-left">{{ stock.user.username}}</td>
+                                                <td class="text-left">{{ stock.createdAt ? stock.createdAt|date('d/m/Y H:i:s') : '' }}</td>
+                                                <td class="text-left">{{ stock.gestion }}</td>
+                                                <td class="text-center">{{ stock.stock }}</td>
+                                                <td class="text-center">{{ stock.stockGestion }}</td>
+                                            </tr>
+                                        {% else %}
+                                            <tr>
+                                                <td colspan="5">Sin registros</td>
+                                            </tr>
+                                        {% endfor %}
+                                        <tr>
+                                            <td colspan='4' class="text-right">STOCK FINAL</td>
+                                            <td class="text-center">{{ stockFinal }}</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div> 
+                    </div>
+                </div>
+            </div>
+        </div>
 
-{% block title %}StockHistoric index{% endblock %}
-
-{% block body %}
-    <h1>StockHistoric index</h1>
-
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>CreatedAt</th>
-                <th>Stock</th>
-                <th>actions</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for stock_historic in stock_historics %}
-            <tr>
-                <td>{{ stock_historic.id }}</td>
-                <td>{{ stock_historic.createdAt ? stock_historic.createdAt|date('Y-m-d H:i:s') : '' }}</td>
-                <td>{{ stock_historic.stock }}</td>
-                <td>
-                    <a href="{{ path('app_stock_historic_show', {'id': stock_historic.id}) }}">show</a>
-                    <a href="{{ path('app_stock_historic_edit', {'id': stock_historic.id}) }}">edit</a>
-                </td>
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="4">no records found</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
-
-    <a href="{{ path('app_stock_historic_new') }}">Create new</a>
-{% endblock %}
+{{ include('footer.html.twig') }} 

@@ -22,6 +22,7 @@
                                             <th class="text-left">Código</th>
                                             <th class="text-left">Categoría</th>
                                             <th class="text-center">Stock inicial</th>
+                                            <th class="text-center">Stock actual</th>
                                             <th class="text-right">Acciones</th>
                                         </tr>
                                     </thead>
@@ -32,16 +33,18 @@
                                             <td class="text-left">{{ product.id }}</td>
                                             <td class="text-left">{{ product.category }}</td>
                                             <td class="text-center">{{ product.stock }}</td>
+                                            <td class="text-center">{{ product.stockFinal }}</td>
                                             <td class="text-right">
-                                                <a class="badge bg-success" data-toggle="tooltip" data-placement="top" title="" data-original-title="Gestionar stock" href="{{ path('app_stock_historic_new') }}">
+                                                <a class="badge bg-success" data-toggle="tooltip" data-placement="top" title="" data-original-title="Gestionar stock" href="{{ path('app_stock_historic_new', {'id': product.id}) }}">
                                                     <i class="las la-cogs"></i>
                                                 </a>
-                                                <a class="badge bg-success" data-toggle="tooltip" data-placement="top" title="" data-original-title="Histórico" href="#">
+                                                <a class="badge bg-success" data-toggle="tooltip" data-placement="top" title="" data-original-title="Histórico" href="{{ path('app_stock_historic_index', {'id': product.id}) }}">
                                                     <i class="las la-history"></i>
                                                 </a>
                                                 <a class="badge bg-warning" data-toggle="tooltip" data-placement="top" title="" data-original-title="Editar" href="{{ path('app_products_edit', {'id': product.id}) }}">
                                                     <i class="ri-pencil-line"></i>
                                                 </a>
+                                                {{ include('products/_delete_form.html.twig') }}
                                             </td>
                                         </tr>
                                     {% else %}

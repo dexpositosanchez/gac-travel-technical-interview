@@ -32,6 +32,7 @@
                                                 <a class="badge bg-warning" data-toggle="tooltip" data-placement="top" title="" data-original-title="Editar" href="{{ path('app_categories_edit', {'id': category.id}) }}">
                                                     <i class="ri-pencil-line"></i>
                                                 </a>
+                                                {{ include('categories/_delete_form.html.twig') }}
                                             </td>
                                         </tr>
                                     {% else %}

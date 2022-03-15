@@ -1,4 +1,18 @@
-{{ form_start(form) }}
-    {{ form_widget(form) }}
-    <button class="btn">{{ button_label|default('Save') }}</button>
+{{ form_start(form, {'attr': {'action': path('app_stock_historic_new', {'id': stock_historic.product.id}) }}) }}
+    <div class="row">
+        <div class="col-md-6">    
+            <div class="form-group">
+                {{ form_label(form.stock,'Añade o elimina stock') }}
+                {{ form_widget(form.stock, {'attr': {'class': 'form-control','min':-product.stockFinal }}) }}
+            </div>
+        </div>
+        <div style='display:none;'>
+            {{ form_widget(form.createdAt) }}
+        </div>                                               
+        <div class="col-md-12 mt-5 text-center">
+            <a class="btn btn-primary mr-2" href="{{ path('app_products_index') }}">Volver</a>
+            <button type="submit" class="btn btn-primary mr-2">{{ button_label|default('Guardar') }}</button>
+        </div>
+    </div>
 {{ form_end(form) }}
+

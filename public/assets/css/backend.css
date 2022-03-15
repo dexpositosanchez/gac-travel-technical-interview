@@ -3278,6 +3278,8 @@ textarea.form-control {
   vertical-align: baseline;
   border-radius: 10px;
   transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out; }
+
+
   @media (prefers-reduced-motion: reduce) {
     .badge {
       transition: none; } }
@@ -8418,6 +8420,15 @@ body.sidebar-main .iq-top-navbar {
   -ms-border-radius: 10px;
   -o-border-radius: 10px;
   border-radius: 10px; }
+
+button.badge{
+  border: 0px;
+  padding: .3em .6em;
+}
+
+.table-responsive form{
+  display: inline;
+}
 
 .breadcrumb.bg-primary .breadcrumb-item + .breadcrumb-item::before {
   color: #fff; }

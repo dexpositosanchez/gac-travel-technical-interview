@@ -1,11 +1,22 @@
-{% extends 'base.html.twig' %}
-
-{% block title %}New StockHistoric{% endblock %}
-
-{% block body %}
-    <h1>Create new StockHistoric</h1>
-
-    {{ include('stock_historic/_form.html.twig') }}
-
-    <a href="{{ path('app_stock_historic_index') }}">back to list</a>
-{% endblock %}
+{{ include('header.html.twig') }} 
+          
+            <div class="content-page">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="d-flex flex-wrap flex-wrap align-items-center justify-content-between mb-4">
+                                <div>
+                                    <h4 class="mb-3">Gestión de stock para el producto {{ product.name }}</h4>
+                                </div>
+                            </div>
+                        </div>
+                        <p>Stock actual: {{ product.stockFinal }}
+                        <div class="col-lg-12">
+                            {{ include('stock_historic/_form.html.twig') }}
+                        </div> 
+                    </div>
+                </div>
+            </div>
+        </div>
+    
+{{ include('footer.html.twig') }} 

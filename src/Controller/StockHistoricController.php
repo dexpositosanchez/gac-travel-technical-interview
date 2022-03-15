@@ -15,43 +15,64 @@ use Symfony\Component\Routing\Annotation\Route;
 #[Route('/stock/historic')]
 class StockHistoricController extends AbstractController
 {
-    #[Route('/', name: 'app_stock_historic_index', methods: ['GET'])]
-    public function index(EntityManagerInterface $entityManager): Response
+    #[Route('/{id}', name: 'app_stock_historic_index', methods: ['GET'])]
+    public function index(EntityManagerInterface $entityManager, $id): Response
     {
+        $product = $entityManager
+            ->getRepository(Products::class)
+            ->find($id);
         $stockHistorics = $entityManager
             ->getRepository(StockHistoric::class)
-            ->findAll();
+            ->findBy(array('product' => $product));
+        $listado=array();
+        $stockFinal=$product->getStock();
+        foreach ($stockHistorics as $item) {
+            if($item->getStock() >= 0){
+                $item->gestion='Añade';
+            } else {
+                $item->gestion='Elimina';
+                $item->setStock($item->getStock()*-1);
+            }
+            $stockFinal=$stockFinal+$item->getStock();
+            $item->stockGestion=$stockFinal;
+            array_push($listado,$item);
+        }
 
         return $this->render('stock_historic/index.html.twig', [
-            'stock_historics' => $stockHistorics,
+            'stock_historics' => $listado,
+            'product' => $product,
+            'stockFinal' => $stockFinal
         ]);
     }
 
-    #[Route('/new', name: 'app_stock_historic_new', methods: ['GET', 'POST'])]
-    public function new(Request $request, EntityManagerInterface $entityManager): Response
+    #[Route('/new/{id}', name: 'app_stock_historic_new', methods: ['GET', 'POST'])]
+    public function new(Request $request, EntityManagerInterface $entityManager, $id): Response
     {
         $stockHistoric = new StockHistoric();
+        $product = $entityManager
+            ->getRepository(Products::class)
+            ->find($id);
+        $product->setStockFinal($entityManager);
+        $stockHistoric->setProduct($product);
         $form = $this->createForm(StockHistoricType::class, $stockHistoric);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $stockHistoric->setCreatedAt(new \DateTime());
             $user = $entityManager
             ->getRepository(Users::class)
-            ->find(13);
-            $product = $entityManager
-            ->getRepository(Products::class)
-            ->find(1);
-            $stockHistoric->setUser($user);
-            $stockHistoric->setProduct($product);
+            ->findAll();
+            $stockHistoric->setUser($user[0]);
             $entityManager->persist($stockHistoric);
             $entityManager->flush();
 
-            return $this->redirectToRoute('app_stock_historic_index', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('app_products_index', [], Response::HTTP_SEE_OTHER);
         }
 
         return $this->renderForm('stock_historic/new.html.twig', [
             'stock_historic' => $stockHistoric,
             'form' => $form,
+            'product' => $product
         ]);
     }
 

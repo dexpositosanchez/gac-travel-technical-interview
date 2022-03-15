@@ -51,7 +51,7 @@ class Users implements UserInterface, PasswordAuthenticatedUserInterface
      */
     private $createdAt;
 
-    /**
+    /*
      * @ORM\Column(type="json")
      */
     //private $roles = [];

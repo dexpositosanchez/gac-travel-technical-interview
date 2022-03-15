@@ -1,13 +1,21 @@
-{% extends 'base.html.twig' %}
-
-{% block title %}Edit Users{% endblock %}
-
-{% block body %}
-    <h1>Edit Users</h1>
-
-    {{ include('users/_form.html.twig', {'button_label': 'Update'}) }}
-
-    <a href="{{ path('app_users_index') }}">back to list</a>
-
-    {{ include('users/_delete_form.html.twig') }}
-{% endblock %}
+{{ include('header.html.twig') }}   
+          
+            <div class="content-page">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="d-flex flex-wrap flex-wrap align-items-center justify-content-between mb-4">
+                                <div>
+                                    <h4 class="mb-3">Editar usuario</h4>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-12">
+                            {{ include('users/_form.html.twig') }}
+                        </div> 
+                    </div>
+                </div>
+            </div>
+        </div>
+    
+{{ include('footer.html.twig') }} 

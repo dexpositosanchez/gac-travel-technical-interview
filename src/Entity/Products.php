@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use App\Entity\StockHistoric;
+use Doctrine\ORM\EntityManagerInterface;
 
 /**
  * Products
@@ -41,6 +43,8 @@ class Products
      * @ORM\Column(name="stock", type="integer", nullable=false)
      */
     private $stock;
+
+    private $stockFinal;
 
     /**
      * @var \Categories
@@ -107,6 +111,24 @@ class Products
 
     public function __toString() {
         return $this->name;
+    }
+
+    public function getStockFinal(): ?int
+    {
+        return $this->stockFinal;
+    }
+
+    public function setStockFinal(EntityManagerInterface $entityManager): self
+    {
+        $stockHistorics = $entityManager
+            ->getRepository(StockHistoric::class)
+            ->findBy(array('product' => $this));
+        $listado=array();
+        $this->stockFinal=$this->getStock();
+        foreach ($stockHistorics as $item) {
+            $this->stockFinal=$this->stockFinal+$item->getStock();
+        }
+        return $this;
     }
 
 

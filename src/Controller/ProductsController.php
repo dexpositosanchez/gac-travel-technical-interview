@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Products;
+use App\Entity\StockHistoric;
 use App\Form\ProductsType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -19,9 +20,14 @@ class ProductsController extends AbstractController
         $products = $entityManager
             ->getRepository(Products::class)
             ->findAll();
+        $listado=array();
+        foreach ($products as $item) {
+            $item->setStockFinal($entityManager);
+            array_push($listado,$item);
+        }
 
         return $this->render('products/index.html.twig', [
-            'products' => $products,
+            'products' => $listado,
         ]);
     }
 

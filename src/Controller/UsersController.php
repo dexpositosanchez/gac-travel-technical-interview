@@ -45,7 +45,7 @@ class UsersController extends AbstractController
             $entityManager->persist($user);
             $entityManager->flush();
 
-            return $this->redirectToRoute('app_users_index', [], Response::HTTP_SEE_OTHER);
+            return $this->render('users/success.html.twig');
         }
 
         return $this->renderForm('users/new.html.twig', [
@@ -89,11 +89,5 @@ class UsersController extends AbstractController
         }
 
         return $this->redirectToRoute('app_users_index', [], Response::HTTP_SEE_OTHER);
-    }
-
-    #[Route('/success', name: 'app_users_success', methods: ['GET'])]
-    public function success(EntityManagerInterface $entityManager): Response
-    {
-        return $this->render('users/success.html.twig');
     }
 }
