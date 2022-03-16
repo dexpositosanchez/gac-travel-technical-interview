@@ -18,5 +18,6 @@ class IndexController extends AbstractController
             'last_username' => $lastUsername,
             'error'         => $error,
         ]);
+
     }
 }

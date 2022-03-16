@@ -1,0 +1,13 @@
+- He tenido que cambiar el tamaño del campo name de products en la base de datos para recibir los datos de la API
+- Aunque no lo pide la prueba, en todas las secciones se pueden eliminar registros.
+- He creido conveniente que los usuarios solo se puedan crear desde el registro y no desde el panel interno.
+- Respecto a los puntos 6 y 7, indica que lance un evento cuando cambia el campo de stock de producto, pero yo entiendo, que el campo de stock de producto, debería ser un stock inicial que no se modifica. Y el stock actual del producto, se calcula a través de todos los registros del histórico. Así lo he hecho yo.
+- He hecho todo excepto la autenticación.
+- Respecto al tema de la autenticación y los firewalls para que no pueda acceder ningún usuario sin registro, tengo todo el código hecho, pero cuando intento entra siempre me devuelve Invalid credential. Tengo hecho todos los firewalls en security.yaml, tienes que comentarlo para poder acceder a la aplicación y ver el funcionamiento.
+- He hecho también lo de la evaluación opcional
+
+
+
+* Como no he podido conseguir la parte de autenticar y el histórico de stock necesita un usuario para el registro, he hecho un apaño para que se registre con el primer usuario de la tabla.
+
+

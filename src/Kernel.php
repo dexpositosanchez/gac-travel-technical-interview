@@ -11,6 +11,10 @@ class Kernel extends BaseKernel
 {
     use MicroKernelTrait;
 
+    /*if (in_array($this->getEnvironment(), array('dev', 'test'), true)) { 
+        $bundles[] = new Doctrine\Bundle\FixturesBundle\DoctrineFixturesBundle();
+    } */
+
     protected function configureContainer(ContainerConfigurator $container): void
     {
         $container->import('../config/{packages}/*.yaml');
